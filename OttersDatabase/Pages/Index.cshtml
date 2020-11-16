@@ -1,0 +1,76 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<h1>Databáze vyder</h1>
+@if (Model.GetUserId() != null)
+{
+    <p>
+        <a asp-page="Create">Create New</a>
+    </p>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Jméno
+            </th>
+            <th>
+                Barva
+            </th>
+            <th>
+                Matka
+            </th>
+            <th>
+                Místo
+            </th>
+            <th>
+                Lokace
+            </th>
+            <th>
+                Chovatel
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Otters)
+        {
+            <tr>
+                <td>
+                    @(item.Name)
+                </td>
+                <td>
+                    @item.Color
+                </td>
+                <td>
+                    @(item.Mother?.Name ?? "neznámá")
+                </td>
+                <td>
+                    @item.Place.Name
+                </td>
+                <td>
+                    @item.Location.Name
+                </td>
+                <td>
+                    @item.founder.UserName
+                </td>
+                <td>
+                    @if (Model.GetUserId() != null)
+                    {
+                        <a asp-page="./Edit" asp-route-id="@item.TattooID">Edit</a>
+                    }
+                    | <a asp-page="./Details" asp-route-id="@item.TattooID">Details</a>  |
+                    @if (Model.GetUserId() == item.founderID)
+                    {
+                        <a asp-page="./Delete" asp-route-id="@item.TattooID">Delete</a>
+                    }
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
