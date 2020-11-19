@@ -15,24 +15,12 @@
 <table class="table">
     <thead>
         <tr>
-            <th>
-                Jméno
-            </th>
-            <th>
-                Barva
-            </th>
-            <th>
-                Matka
-            </th>
-            <th>
-                Místo
-            </th>
-            <th>
-                Lokace
-            </th>
-            <th>
-                Chovatel
-            </th>
+            <th>Jméno</th>
+            <th>Barva</th>
+            <th>Matka</th>
+            <th>Místo</th>
+            <th>Lokace</th>
+            <th>Chovatel</th>
             <th></th>
         </tr>
     </thead>
@@ -40,24 +28,12 @@
         @foreach (var item in Model.Otters)
         {
             <tr>
-                <td>
-                    @(item.Name)
-                </td>
-                <td>
-                    @item.Color
-                </td>
-                <td>
-                    @(item.Mother?.Name ?? "neznámá")
-                </td>
-                <td>
-                    @item.Place.Name
-                </td>
-                <td>
-                    @item.Location.Name
-                </td>
-                <td>
-                    @item.founder.UserName
-                </td>
+                <td>@(item.Name)</td>
+                <td>@item.Color</td>
+                <td>@(item.Mother?.Name ?? "neznámá")</td>
+                <td>@item.Place.Name</td>
+                <td>@item.Location.Name</td>
+                <td>@item.founder.UserName</td>
                 <td>
                     @if (Model.GetUserId() != null)
                     {
@@ -68,7 +44,6 @@
                     {
                         <a asp-page="./Delete" asp-route-id="@item.TattooID">Delete</a>
                     }
-
                 </td>
             </tr>
         }

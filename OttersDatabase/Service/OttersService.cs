@@ -44,12 +44,12 @@ namespace OttersDatabase.Service
             data = otter.PlaceName.Split(';');
             Otter = new Otter()
             {
-                founderID = UserID,
-                MotherId = otter.MotherId,
                 Name = otter.Name,
                 Color = otter.Color,
+                MotherId = otter.MotherId,
+                PlaceName = data[1],
                 LocationId = int.Parse(data[0]),
-                PlaceName = data[1]
+                founderID = UserID
             };
 
             _context.Otters.Add(Otter);
@@ -83,13 +83,12 @@ namespace OttersDatabase.Service
             Otter = new Otter()
             {
                 TattooID = otter.TattooID,
-                founderID = UserID,
-                Mother = otter.Mother,
-                MotherId = otter.MotherId,
                 Name = otter.Name,
                 Color = otter.Color,
+                MotherId = otter.MotherId,
+                PlaceName = data[1],
                 LocationId = int.Parse(data[0]),
-                PlaceName = data[1]
+                founderID = UserID
             };
             _context.Attach(Otter).State = EntityState.Modified;
 
@@ -100,6 +99,7 @@ namespace OttersDatabase.Service
             }
             catch (DbUpdateConcurrencyException)
             {
+                
                 throw;
             }
         }
