@@ -226,19 +226,24 @@ namespace OttersDatabase.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Locations",
-                columns: new[] { "LocationID", "Area", "Name" },
-                values: new object[] { 111, 33233, "NP Šumava" });
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[] { "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXX1", "1f78dd44-9367-402d-8179-58c0ecc5175e", "Administrator", "ADMINISTRATOR" });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                values: new object[] { "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX", 0, "e8890195-8145-4827-9644-18c98e274b49", "ondrej.bednar@pslib.cz", true, false, null, "ONDREJ.BEDNAR@PSLIB.CZ", "ONDREJ.BEDNAR@PSLIB.CZ", "AQAAAAEAACcQAAAAEEk7ZVz6G106K83HWPcelBX9diTketYl2dhnaXw0Bfbe2thIYOdxvv9/lrsV8Uoelw==", null, false, "", false, "ondrej.bednar@pslib.cz" });
 
             migrationBuilder.InsertData(
                 table: "Locations",
                 columns: new[] { "LocationID", "Area", "Name" },
-                values: new object[] { 128, 13165, "CHKO Jizerské hory" });
-
-            migrationBuilder.InsertData(
-                table: "Locations",
-                columns: new[] { "LocationID", "Area", "Name" },
-                values: new object[] { 666, 15432, "CHKO Čeký Les" });
+                values: new object[,]
+                {
+                    { 111, 33233, "NP Šumava" },
+                    { 128, 13165, "CHKO Jizerské hory" },
+                    { 666, 15432, "CHKO Čeký Les" }
+                });
 
             migrationBuilder.InsertData(
                 table: "Places",
@@ -257,17 +262,17 @@ namespace OttersDatabase.Migrations
             migrationBuilder.InsertData(
                 table: "Otters",
                 columns: new[] { "TattooID", "Color", "LocationId", "MotherId", "Name", "PlaceName", "founderID" },
-                values: new object[] { 1, "hnědá jako hodně", 111, null, "Velká Máti", "U Studánky", null });
+                values: new object[] { 1, "hnědá jako hodně", 111, null, "Velká Máti", "U Studánky", "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX" });
 
             migrationBuilder.InsertData(
                 table: "Otters",
                 columns: new[] { "TattooID", "Color", "LocationId", "MotherId", "Name", "PlaceName", "founderID" },
-                values: new object[] { 2, "Hnědá taky", 111, 1, "První Dcera", "U Studánky", null });
+                values: new object[] { 2, "Hnědá taky", 111, 1, "První Dcera", "U Studánky", "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX" });
 
             migrationBuilder.InsertData(
                 table: "Otters",
                 columns: new[] { "TattooID", "Color", "LocationId", "MotherId", "Name", "PlaceName", "founderID" },
-                values: new object[] { 3, "Hnědá trochu", 128, 1, "ZBloudilka", "Černé Jezero", null });
+                values: new object[] { 3, "Hnědá trochu", 128, 1, "ZBloudilka", "Černé Jezero", "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

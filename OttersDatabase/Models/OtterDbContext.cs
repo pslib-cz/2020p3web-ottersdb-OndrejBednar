@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace OttersDatabase.Models
@@ -33,7 +34,6 @@ namespace OttersDatabase.Models
                     new Place { Name = "U Studánky", LocationId = 666 },
                     new Place { Name = "Český Pařez", LocationId = 666 }
                 );
-
             modelBuilder.Entity<Otter>(
                 o =>
                 {
@@ -50,10 +50,25 @@ namespace OttersDatabase.Models
             );
 
             modelBuilder.Entity<Otter>().HasData(
-                new Otter { Name = "Velká Máti", TattooID = 1, Color = "hnědá jako hodně", PlaceName = "U Studánky", LocationId = 111 },
-                new Otter { Name = "První Dcera", TattooID = 2, Color = "Hnědá taky", MotherId = 1, PlaceName = "U Studánky", LocationId = 111 },
-                new Otter { Name = "ZBloudilka", TattooID = 3, Color = "Hnědá trochu", MotherId = 1, PlaceName = "Černé Jezero", LocationId = 128 }
+                new Otter { Name = "Velká Máti", TattooID = 1, Color = "hnědá jako hodně", PlaceName = "U Studánky", LocationId = 111, founderID = "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX" },
+                new Otter { Name = "První Dcera", TattooID = 2, Color = "Hnědá taky", MotherId = 1, PlaceName = "U Studánky", LocationId = 111, founderID = "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX" },
+                new Otter { Name = "ZBloudilka", TattooID = 3, Color = "Hnědá trochu", MotherId = 1, PlaceName = "Černé Jezero", LocationId = 128, founderID = "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX" }
             );
+
+            modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Id = "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXX1", Name = "Administrator", NormalizedName = "ADMINISTRATOR" });
+            var hasher = new PasswordHasher<IdentityUser>();
+            modelBuilder.Entity<IdentityUser>().HasData(new IdentityUser
+            {
+                Id = "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
+                Email = "ondrej.bednar@pslib.cz",
+                NormalizedEmail = "ONDREJ.BEDNAR@PSLIB.CZ",
+                EmailConfirmed = true,
+                LockoutEnabled = false,
+                UserName = "ondrej.bednar@pslib.cz",
+                NormalizedUserName = "ONDREJ.BEDNAR@PSLIB.CZ",
+                PasswordHash = hasher.HashPassword(null, "123456"),
+                SecurityStamp = string.Empty
+            });
         }
     }
 }

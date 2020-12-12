@@ -27,25 +27,25 @@
     <tbody>
         @foreach (var item in Model.Otters)
         {
-            <tr>
-                <td>@(item.Name)</td>
-                <td>@item.Color</td>
-                <td>@(item.Mother?.Name ?? "neznámá")</td>
-                <td>@item.Place.Name</td>
-                <td>@item.Location.Name</td>
-                <td>@item.founder.UserName</td>
-                <td>
-                    @if (Model.GetUserId() != null)
-                    {
-                        <a asp-page="./Edit" asp-route-id="@item.TattooID">Edit</a>
-                    }
-                    | <a asp-page="./Details" asp-route-id="@item.TattooID">Details</a>  |
-                    @if (Model.GetUserId() == item.founderID)
-                    {
-                        <a asp-page="./Delete" asp-route-id="@item.TattooID">Delete</a>
-                    }
-                </td>
-            </tr>
+        <tr>
+            <td>@(item.Name)</td>
+            <td>@item.Color</td>
+            <td>@(item.Mother?.Name ?? "neznámá")</td>
+            <td>@item.Place.Name</td>
+            <td>@item.Location.Name</td>
+            <td>@item.founder.UserName</td>
+            <td>
+                @if (Model.GetUserId() != null)
+                {
+                    <a asp-page="./Edit" asp-route-id="@item.TattooID">Edit</a>
+                }
+                | <a asp-page="./Details" asp-route-id="@item.TattooID">Details</a>  |
+                @if (Model.GetUserId() == item.founderID || Model.User.IsInRole("Administrator"))
+                {
+                    <a asp-page="./Delete" asp-route-id="@item.TattooID">Delete</a>
+                }
+            </td>
+        </tr>
         }
     </tbody>
 </table>

@@ -15,7 +15,7 @@ namespace OttersDatabase.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.6")
+                .HasAnnotation("ProductVersion", "3.1.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -44,6 +44,15 @@ namespace OttersDatabase.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXX1",
+                            ConcurrencyStamp = "1f78dd44-9367-402d-8179-58c0ecc5175e",
+                            Name = "Administrator",
+                            NormalizedName = "ADMINISTRATOR"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -133,6 +142,24 @@ namespace OttersDatabase.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "e8890195-8145-4827-9644-18c98e274b49",
+                            Email = "ondrej.bednar@pslib.cz",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "ONDREJ.BEDNAR@PSLIB.CZ",
+                            NormalizedUserName = "ONDREJ.BEDNAR@PSLIB.CZ",
+                            PasswordHash = "AQAAAAEAACcQAAAAEEk7ZVz6G106K83HWPcelBX9diTketYl2dhnaXw0Bfbe2thIYOdxvv9/lrsV8Uoelw==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "",
+                            TwoFactorEnabled = false,
+                            UserName = "ondrej.bednar@pslib.cz"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -301,7 +328,8 @@ namespace OttersDatabase.Migrations
                             Color = "hnědá jako hodně",
                             LocationId = 111,
                             Name = "Velká Máti",
-                            PlaceName = "U Studánky"
+                            PlaceName = "U Studánky",
+                            founderID = "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
                         },
                         new
                         {
@@ -310,7 +338,8 @@ namespace OttersDatabase.Migrations
                             LocationId = 111,
                             MotherId = 1,
                             Name = "První Dcera",
-                            PlaceName = "U Studánky"
+                            PlaceName = "U Studánky",
+                            founderID = "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
                         },
                         new
                         {
@@ -319,7 +348,8 @@ namespace OttersDatabase.Migrations
                             LocationId = 128,
                             MotherId = 1,
                             Name = "ZBloudilka",
-                            PlaceName = "Černé Jezero"
+                            PlaceName = "Černé Jezero",
+                            founderID = "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
                         });
                 });
 

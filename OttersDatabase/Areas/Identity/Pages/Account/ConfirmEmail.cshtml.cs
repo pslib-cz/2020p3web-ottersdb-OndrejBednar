@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
-using OttersDatabase.Service;
 
 namespace OttersDatabase.Areas.Identity.Pages.Account
 {
@@ -16,12 +15,10 @@ namespace OttersDatabase.Areas.Identity.Pages.Account
     public class ConfirmEmailModel : PageModel
     {
         private readonly UserManager<IdentityUser> _userManager;
-        private readonly MailService _mailService;
 
-        public ConfirmEmailModel(UserManager<IdentityUser> userManager, MailService mailService)
+        public ConfirmEmailModel(UserManager<IdentityUser> userManager)
         {
             _userManager = userManager;
-            _mailService = mailService;
         }
 
         [TempData]

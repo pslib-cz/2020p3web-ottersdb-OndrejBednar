@@ -14,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Http;
 using OttersDatabase.Service;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace OttersDatabase
 {
@@ -32,16 +33,19 @@ namespace OttersDatabase
             services.AddDbContext<OtterDbContext>(
                    o => o.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
                    );
-            services.AddDefaultIdentity<IdentityUser>(options =>
-            {
-                options.SignIn.RequireConfirmedEmail = false;
-                options.SignIn.RequireConfirmedAccount = false;
-                options.Password.RequireNonAlphanumeric = false;
-                options.Password.RequireDigit = false;
-            }).AddEntityFrameworkStores<OtterDbContext>();
+            services.AddIdentity<IdentityUser, IdentityRole>(options => 
+                options.SignIn.RequireConfirmedAccount = true)
+                           .AddEntityFrameworkStores<OtterDbContext>().AddDefaultTokenProviders();
+            services.AddAuthorization(
+                options =>
+                {
+                    options.AddPolicy("Admin", policy => policy.RequireRole("Administrator"));
+                    options.AddPolicy("Adult", policy => policy.RequireClaim("Age", "18"));
+                }
+                );
 
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddSingleton<MailService>();
+            services.AddScoped<IEmailSender, EmailSender>();
+            services.AddScoped<EmailSender>();
             services.AddScoped<OttersService>();
             services.AddRazorPages();
         }

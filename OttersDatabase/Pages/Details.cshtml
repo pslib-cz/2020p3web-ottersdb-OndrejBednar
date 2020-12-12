@@ -15,7 +15,7 @@
         <dt class="col-sm-2">Color</dt>
         <dd class="col-sm-10">@Model.Otter.Color</dd>
         <dt class="col-sm-2">Mother</dt>
-        <dd class="col-sm-10">@Model.Otter.Mother.Name</dd>
+        <dd class="col-sm-10">@(Model.Otter.Mother?.Name ?? "neznámá")</dd>
         <dt class="col-sm-2">Place</dt>
         <dd class="col-sm-10">@Model.Otter.Place.Name</dd>
         <dt class="col-sm-2">Location</dt>
