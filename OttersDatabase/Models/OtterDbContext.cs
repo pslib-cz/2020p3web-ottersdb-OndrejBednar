@@ -55,7 +55,12 @@ namespace OttersDatabase.Models
                 new Otter { Name = "ZBloudilka", TattooID = 3, Color = "Hnědá trochu", MotherId = 1, PlaceName = "Černé Jezero", LocationId = 128, founderID = "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX" }
             );
 
-            modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Id = "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXX1", Name = "Administrator", NormalizedName = "ADMINISTRATOR" });
+            modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole 
+            { 
+                Id = "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXX1", 
+                Name = "Administrator",
+                NormalizedName = "ADMINISTRATOR"
+            });
             var hasher = new PasswordHasher<IdentityUser>();
             modelBuilder.Entity<IdentityUser>().HasData(new IdentityUser
             {
@@ -67,7 +72,12 @@ namespace OttersDatabase.Models
                 UserName = "ondrej.bednar@pslib.cz",
                 NormalizedUserName = "ONDREJ.BEDNAR@PSLIB.CZ",
                 PasswordHash = hasher.HashPassword(null, "123456"),
-                SecurityStamp = string.Empty
+                SecurityStamp = string.Empty,
+            });
+            modelBuilder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string> 
+            { 
+                RoleId = "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXX1", 
+                UserId = "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX" 
             });
         }
     }

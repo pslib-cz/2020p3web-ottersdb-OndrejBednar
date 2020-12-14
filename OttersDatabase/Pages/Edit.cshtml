@@ -33,6 +33,7 @@
                 <select asp-for="Otter.PlaceName" class="form-control" asp-items="Model.PlaceNames"></select>
                 <span asp-validation-for="Otter.PlaceName" class="text-danger"></span>
             </div>
+            <input type="hidden" asp-for="Otter.founderID" />
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>

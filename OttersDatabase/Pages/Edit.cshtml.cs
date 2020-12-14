@@ -26,7 +26,8 @@ namespace OttersDatabase.Pages
 
         [BindProperty]
         public Otter Otter { get; set; }
-
+        [BindProperty]
+        public string Data { get; set; }
         public List<SelectListItem> MotherIds { get; set; }
         public List<SelectListItem> PlaceNames { get; set; }
 
@@ -46,6 +47,7 @@ namespace OttersDatabase.Pages
             _otterservice.PrepareSelectLists();
             MotherIds = _otterservice.MotherIds;
             PlaceNames = _otterservice.PlaceNames;
+            Otter.PlaceName = null;
             return Page();
         }
 
@@ -55,7 +57,6 @@ namespace OttersDatabase.Pages
             {
                 return Page();
             }*/
-
             if (await _otterservice.EditOtterAsync(Otter, GetUserId()) == false) { return NotFound(); }
 
             return RedirectToPage("./Index");

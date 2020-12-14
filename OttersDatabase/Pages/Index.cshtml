@@ -40,7 +40,7 @@
                     <a asp-page="./Edit" asp-route-id="@item.TattooID">Edit</a>
                 }
                 | <a asp-page="./Details" asp-route-id="@item.TattooID">Details</a>  |
-                @if (Model.GetUserId() == item.founderID || Model.User.IsInRole("Administrator"))
+                @if (Model.GetUserId() == item.founderID || User.IsInRole("Administrator"))
                 {
                     <a asp-page="./Delete" asp-route-id="@item.TattooID">Delete</a>
                 }

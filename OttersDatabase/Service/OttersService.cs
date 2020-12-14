@@ -31,11 +31,18 @@ namespace OttersDatabase.Service
             }
 
             PlaceNames = new List<SelectListItem>();
-            foreach (var item in _context.Places.Include(l => l.Location).AsEnumerable<Place>())
+            foreach (var item in _context.Places.Include(l => l.Location).AsEnumerable())
             {
-                PlaceNames
-                    .Add(new SelectListItem($"{item.Name} ({item.Location.Name})",
-                                               $"{item.LocationId};{item.Name}"));
+                if (Otter != null && item.Name == Otter.Place.Name && item.LocationId == Otter.Place.LocationId)
+                {
+                    PlaceNames.Add(new SelectListItem($"{item.Name} ({item.Location.Name})",
+                                               $"{item.Name};{item.LocationId}", true));
+                }
+                else
+                {
+                    PlaceNames.Add(new SelectListItem($"{item.Name} ({item.Location.Name})",
+                                               $"{item.Name};{item.LocationId}"));
+                } 
             }
         }
         public async Task<Otter> CreateOtterAsync(Otter otter, string UserID)
@@ -47,8 +54,8 @@ namespace OttersDatabase.Service
                 Name = otter.Name,
                 Color = otter.Color,
                 MotherId = otter.MotherId,
-                PlaceName = data[1],
-                LocationId = int.Parse(data[0]),
+                PlaceName = data[0],
+                LocationId = int.Parse(data[1]),
                 founderID = UserID
             };
 
@@ -56,25 +63,11 @@ namespace OttersDatabase.Service
             await _context.SaveChangesAsync();
             return Otter;
         }
-        public async Task<Otter> GetOtterAsync(int? id)
-        {
-            Otter = await _context.Otters.FindAsync(id);
-            return Otter;
-        }
-        public async Task<Otter> GetFullOtterAsync(int? id)
-        {
-            Otter = await _context.Otters
-                    .Include(v => v.Location)
-                    .Include(v => v.Mother)
-                    .Include(v => v.Place)
-                    .Include(v => v.founder).AsNoTracking().FirstOrDefaultAsync(m => m.TattooID == id);
-            return Otter;
-        }
-        public async Task<string> DeleteOtterAsync(int? id)
+        public async Task<bool> DeleteOtterAsync(int? id)
         {
             _context.Otters.Remove(await _context.Otters.FindAsync(id));
             await _context.SaveChangesAsync();
-            return "done";
+            return true;
         }
         public async Task<bool> EditOtterAsync(Otter otter, string UserID)
         {
@@ -86,9 +79,9 @@ namespace OttersDatabase.Service
                 Name = otter.Name,
                 Color = otter.Color,
                 MotherId = otter.MotherId,
-                PlaceName = data[1],
-                LocationId = int.Parse(data[0]),
-                founderID = UserID
+                PlaceName = data[0],
+                LocationId = int.Parse(data[1]),
+                founderID = otter.founderID
             };
             _context.Attach(Otter).State = EntityState.Modified;
 
@@ -98,10 +91,23 @@ namespace OttersDatabase.Service
                 return true;
             }
             catch (DbUpdateConcurrencyException)
-            {
-                
+            {      
                 throw;
             }
+        }
+        public async Task<Otter> GetOtterAsync(int? id)
+        {
+            Otter = await _context.Otters.AsNoTracking().FirstOrDefaultAsync(m => m.TattooID == id);
+            return Otter;
+        }
+        public async Task<Otter> GetFullOtterAsync(int? id)
+        {
+            Otter = await _context.Otters
+                    .Include(v => v.Location)
+                    .Include(v => v.Mother)
+                    .Include(v => v.Place)
+                    .Include(v => v.founder).AsNoTracking().FirstOrDefaultAsync(m => m.TattooID == id);
+            return Otter;
         }
     }
 }
