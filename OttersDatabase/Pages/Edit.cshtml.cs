@@ -47,7 +47,7 @@ namespace OttersDatabase.Pages
             _otterservice.PrepareSelectLists();
             MotherIds = _otterservice.MotherIds;
             PlaceNames = _otterservice.PlaceNames;
-            Otter.PlaceName = null;
+            Otter.PlaceName = null; //aby se PlaceNames vybral spravne
             return Page();
         }
 

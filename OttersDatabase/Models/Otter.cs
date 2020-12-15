@@ -15,6 +15,7 @@ namespace OttersDatabase.Models
         [Key]
         public int? TattooID { get; set; }
         public Otter Mother { get; set; }
+        [Display(Name = "Matka")]
         [ForeignKey("Mother")]
         public int? MotherId { get; set; }
         [Required]

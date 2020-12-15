@@ -1,0 +1,43 @@
+﻿@page
+@model OttersDatabase.Areas.Admin.Pages.PermissionsModel
+@{
+    ViewData["Title"] = "Permissions";
+    if (ViewData.TryGetValue("ParentLayout", out var parentLayout))
+    {
+        Layout = (string)parentLayout;
+    }
+    else
+    {
+        Layout = "/Pages/Shared/_Layout.cshtml";
+    }
+}
+
+<h1>Permissions</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div class="form-group">
+                <label class="control-label">User</label>
+                <select asp-for="Set.User" class="form-control" asp-items="Model.Users"></select>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Role</label>
+                <select asp-for="Set.Role" class="form-control" asp-items="Model.Roles"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Set" class="btn btn-primary" asp-page="./Pages/Index" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

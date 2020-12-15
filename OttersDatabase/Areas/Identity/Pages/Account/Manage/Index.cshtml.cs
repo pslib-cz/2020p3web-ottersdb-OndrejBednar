@@ -21,7 +21,7 @@ namespace OttersDatabase.Areas.Identity.Pages.Account.Manage
             _userManager = userManager;
             _signInManager = signInManager;
         }
-
+        [BindProperty]
         public string Username { get; set; }
 
         [TempData]
@@ -85,6 +85,10 @@ namespace OttersDatabase.Areas.Identity.Pages.Account.Manage
                     StatusMessage = "Unexpected error when trying to set phone number.";
                     return RedirectToPage();
                 }
+            }
+            if (user.UserName != Username)
+            {
+                await _userManager.SetUserNameAsync(user, Username);
             }
 
             await _signInManager.RefreshSignInAsync(user);
