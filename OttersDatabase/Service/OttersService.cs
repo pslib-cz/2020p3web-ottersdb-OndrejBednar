@@ -42,7 +42,7 @@ namespace OttersDatabase.Service
                 {
                     PlaceNames.Add(new SelectListItem($"{item.Name} ({item.Location.Name})",
                                                $"{item.Name};{item.LocationId}"));
-                } 
+                }
             }
         }
         public async Task<Otter> CreateOtterAsync(Otter otter, string UserID)
@@ -63,11 +63,16 @@ namespace OttersDatabase.Service
             await _context.SaveChangesAsync();
             return Otter;
         }
-        public async Task<bool> DeleteOtterAsync(int? id)
+        public async Task<bool> DeleteOtterAsync(int? id, string userId)
         {
-            _context.Otters.Remove(await _context.Otters.FindAsync(id));
-            await _context.SaveChangesAsync();
-            return true;
+            Otter = await GetOtterAsync(id);
+            if (Otter.founderID == userId || _context.UserRoles.Find(new [] { userId, "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXX1" }) != null)
+            {
+                _context.Otters.Remove(await _context.Otters.FindAsync(id));
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            return false;
         }
         public async Task<bool> EditOtterAsync(Otter otter, string UserID)
         {
@@ -91,7 +96,7 @@ namespace OttersDatabase.Service
                 return true;
             }
             catch (DbUpdateConcurrencyException)
-            {      
+            {
                 throw;
             }
         }
