@@ -66,15 +66,15 @@ namespace OttersDatabase.Service
         public async Task<bool> DeleteOtterAsync(int? id, string userId)
         {
             Otter = await GetFullOtterAsync(id);
-            if (Otter.Children != null)
+            if (Otter.founderID == userId || _context.UserRoles.Find(new[] { userId, "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXX1" }) != null)
             {
-                foreach (var item in Otter.Children)
+                if (Otter.Children != null)
                 {
-                    _context.Otters.Find(item.TattooID).MotherId = null;
+                    foreach (var item in Otter.Children)
+                    {
+                        _context.Otters.Find(item.TattooID).MotherId = null;
+                    }
                 }
-            }
-            if (Otter.founderID == userId || _context.UserRoles.Find(new [] { userId, "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXX1" }) != null)
-            {
                 _context.Otters.Remove(await _context.Otters.FindAsync(id));
                 await _context.SaveChangesAsync();
                 return true;
